@@ -1,0 +1,1 @@
+{% extends "base.html" %}{% block content %}<h2>রক্তের অনুরোধসমূহ</h2>{% for r in requests %}<article><b>{{r.blood}} রক্ত প্রয়োজন — {{r.patient}}</b><br>{{r.hospital}}, {{r.upazila}}, {{r.district}}<br>যোগাযোগ: <a href="tel:{{r.phone}}">{{r.phone}}</a><p>{{r.details}}</p></article>{% else %}<p>এখনো কোনো অনুরোধ নেই।</p>{% endfor %}{% endblock %}
