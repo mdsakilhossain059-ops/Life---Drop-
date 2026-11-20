@@ -132,8 +132,8 @@ def availability():
     db().commit()
     return redirect(url_for("home"))
 
-@app.route("/request", methods=["GET", "POST"])
-def request_blood():
+    if not session.get("uid"):
+        return render_template("login_required.html")
     if request.method == "POST":
         f = request.form
         db().execute(
