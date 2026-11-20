@@ -197,6 +197,20 @@ footer {
 
     th, td {
         padding: 8px 5px;
+        footer,
+footer h3,
+footer p,
+footer a {
+    color: #ffffff !important;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
     }
 }
 
