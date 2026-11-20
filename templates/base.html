@@ -1,33 +1,139 @@
-<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#b91c1c"><link rel="manifest" href="/manifest.json"><link rel="stylesheet" href="/static/style.css"><title>Life Drop</title></head><body><header><a href="/">🩸 Life Drop</a><nav><a href="/">হোম</a><a href="/donors">ডোনার খুঁজুন</a><a href="/request">রক্তের অনুরোধ</a><a href="/requests">অনুরোধসমূহ</a>{% if session.uid %}<a href="/logout">লগআউট</a>{% else %}<a href="/login">লগইন</a>{% endif %}</nav></header><main>{% for m in get_flashed_messages() %}<p class="notice">{{m}}</p>{% endfor %}{% block content %}{% endblock %}</main>
 
-<footer style="background:#b91c1c; color:#ffffff; text-align:center; padding:25px 15px; margin-top:30px; border-radius:12px;">
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#b91c1c">
 
-    <h3 style="color:#ffffff;">🩸 Life Drop</h3>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/static/style.css">
 
-    <p style="color:#ffffff;">রক্তদানে জীবন বাঁচে</p>
+    <title>Life Drop</title>
 
-    <p style="color:#ffffff;">Developer: MD Sakil Hossain</p>
+    <style>
+        nav a {
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
 
-    <p style="color:#ffffff;">
+        nav a.active {
+            background: white;
+            color: #c9002b !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        nav a:hover {
+            background: #ffffff;
+            color: #c9002b !important;
+        }
+
+        @media(max-width:600px) {
+            nav {
+                gap: 8px;
+            }
+
+            nav a {
+                font-size: 14px;
+                padding: 7px 9px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <a href="/">🩸 Life Drop</a>
+
+    <nav>
+        <a href="/"
+           class="{{ 'active' if request.path == '/' else '' }}">
+            হোম
+        </a>
+
+        <a href="/donors"
+           class="{{ 'active' if request.path == '/donors' else '' }}">
+            ডোনার খুঁজুন
+        </a>
+
+        <a href="/request"
+           class="{{ 'active' if request.path == '/request' else '' }}">
+            রক্তের অনুরোধ
+        </a>
+
+        <a href="/requests"
+           class="{{ 'active' if request.path == '/requests' else '' }}">
+            অনুরোধসমূহ
+        </a>
+
+        {% if session.get('uid') %}
+
+            <a href="/logout">লগআউট</a>
+
+        {% else %}
+
+            <a href="/login"
+               class="{{ 'active' if request.path == '/login' else '' }}">
+                লগইন
+            </a>
+
+            <a href="/register"
+               class="{{ 'active' if request.path == '/register' else '' }}">
+                নিবন্ধন
+            </a>
+
+        {% endif %}
+    </nav>
+</header>
+
+<main>
+
+    {% for m in get_flashed_messages() %}
+        <p class="notice">{{ m }}</p>
+    {% endfor %}
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+<footer style="background:#b91c1c;color:white;text-align:center;padding:25px 15px;margin-top:30px;">
+
+    <h3 style="color:white;">🩸 Life Drop</h3>
+
+    <p>রক্তদানে জীবন বাঁচে</p>
+
+    <p>Developer: MD Sakil Hossain</p>
+
+    <p>
         WhatsApp:
-        <a style="color:#ffffff;" href="https://wa.me/8801319072593" target="_blank">
+        <a style="color:white;" href="https://wa.me/8801319072593">
             +8801319072593
         </a>
     </p>
 
-    <p style="color:#ffffff;">
+    <p>
         Facebook:
-        <a style="color:#ffffff;" href="https://www.facebook.com/share/1Q2GNvRyj2/" target="_blank">
+        <a style="color:white;" href="https://www.facebook.com/share/1Q2GNvRyj2/">
             Visit Facebook Profile
         </a>
     </p>
 
-    <hr style="border-color:#ffffff;">
+    <hr>
 
-    <p style="color:#ffffff; font-size:13px;">
+    <p style="font-size:13px;">
         © 2026 Life Drop. All Rights Reserved.
     </p>
 
 </footer>
-    
-  <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/static/sw.js')}</script></body></html>
+
+<script>
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/static/sw.js');
+}
+</script>
+
+</body>
+</html>
