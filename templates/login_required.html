@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width:500px; margin:70px auto; padding:30px 20px; text-align:center; background:white; border-radius:15px; box-shadow:0 4px 18px rgba(0,0,0,0.10);">
+
+    <div style="font-size:55px;">🩸</div>
+
+    <h2 style="color:#b91c1c;">লগইন প্রয়োজন</h2>
+
+    <p style="font-size:17px; line-height:1.8; color:#444;">
+        তালিকা দেখতে বা রক্তের অনুরোধ করতে নিবন্ধন করুন অথবা লগইন।
+    </p>
+
+    <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:25px;">
+
+        <a href="/register" style="background:#b91c1c; color:white; padding:12px 22px; border-radius:8px; text-decoration:none;">
+            নিবন্ধন করুন
+        </a>
+
+        <a href="/login" style="background:#333; color:white; padding:12px 22px; border-radius:8px; text-decoration:none;">
+            লগইন করুন
+        </a>
+
+    </div>
+</div>
+{% endblock %}
