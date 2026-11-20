@@ -1,25 +1,33 @@
 <!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#b91c1c"><link rel="manifest" href="/manifest.json"><link rel="stylesheet" href="/static/style.css"><title>Life Drop</title></head><body><header><a href="/">🩸 Life Drop</a><nav><a href="/donors">ডোনার খুঁজুন</a><a href="/request">রক্তের অনুরোধ</a><a href="/requests">অনুরোধসমূহ</a>{% if session.uid %}<a href="/logout">লগআউট</a>{% else %}<a href="/login">লগইন</a>{% endif %}</nav></header><main>{% for m in get_flashed_messages() %}<p class="notice">{{m}}</p>{% endfor %}{% block content %}{% endblock %}</main>
-<footer>
-    <h3>🩸 Life Drop</h3>
-    <p>রক্তদানে জীবন বাঁচে</p>
 
-    <p>Developer: MD Sakil Hossain</p>
+<footer style="background:#b91c1c; color:#ffffff; text-align:center; padding:25px 15px; margin-top:30px; border-radius:12px;">
 
-    <p>
+    <h3 style="color:#ffffff;">🩸 Life Drop</h3>
+
+    <p style="color:#ffffff;">রক্তদানে জীবন বাঁচে</p>
+
+    <p style="color:#ffffff;">Developer: MD Sakil Hossain</p>
+
+    <p style="color:#ffffff;">
         WhatsApp:
-        <a href="https://wa.me/8801319072593" target="_blank">
+        <a style="color:#ffffff;" href="https://wa.me/8801319072593" target="_blank">
             +8801319072593
         </a>
     </p>
 
-    <p>
+    <p style="color:#ffffff;">
         Facebook:
-        <a href="https://www.facebook.com/share/1Q2GNvRyj2/" target="_blank">
+        <a style="color:#ffffff;" href="https://www.facebook.com/share/1Q2GNvRyj2/" target="_blank">
             Visit Facebook Profile
         </a>
     </p>
 
-    <hr>
-    <p>© 2026 Life Drop. All Rights Reserved.</p>
+    <hr style="border-color:#ffffff;">
+
+    <p style="color:#ffffff; font-size:13px;">
+        © 2026 Life Drop. All Rights Reserved.
+    </p>
+
 </footer>
+    
   <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/static/sw.js')}</script></body></html>
