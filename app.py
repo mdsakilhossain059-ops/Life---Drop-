@@ -6,6 +6,15 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "change-this-secret-before-public-launch")
 DB = os.environ.get("DATABASE_PATH", "life_drop.db")
 
+@app.route("/manifest.json")
+def manifest():
+    return send_from_directory(
+        app.root_path,
+        "manifest.json",
+        mimetype="application/manifest+json"
+    )
+    
+
 def db():
     if "db" not in g:
         g.db = sqlite3.connect(DB)
