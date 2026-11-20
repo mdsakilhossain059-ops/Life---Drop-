@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="max-width:550px;margin:60px auto;padding:35px 20px;text-align:center;background:#ffe5eb;border-radius:18px;">
+
+    <h2 style="color:#c9002b;">🔒 লগইন প্রয়োজন</h2>
+
+    <p style="font-size:19px;line-height:1.8;">
+        তালিকা দেখতে অথবা রক্তের অনুরোধ করতে
+        নিবন্ধন করুন অথবা লগইন করুন।
+    </p>
+
+    <a href="{{ url_for('register') }}"
+       style="display:block;background:#c9002b;color:white;padding:14px;margin:15px auto;border-radius:10px;text-decoration:none;">
+       নিবন্ধন করুন
+    </a>
+
+    <a href="{{ url_for('login') }}"
+       style="display:block;background:white;color:#c9002b;padding:14px;margin:15px auto;border:2px solid #c9002b;border-radius:10px;text-decoration:none;">
+       লগইন করুন
+    </a>
+
+</div>
+
+{% endblock %}
