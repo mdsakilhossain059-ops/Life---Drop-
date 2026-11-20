@@ -1,1 +1,43 @@
-{% extends "base.html" %}{% block content %}<h2>ডোনার নিবন্ধন</h2><form method="post"><input name="name" placeholder="আপনার নাম" required><input type="email" name="email" placeholder="ইমেইল" required><input type="password" name="password" placeholder="পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)" minlength="8" required><input name="phone" placeholder="মোবাইল নম্বর" required><select name="blood">{% for b in blood %}<option>{{b}}</option>{% endfor %}</select><select name="district">{% for d in districts %}<option>{{d}}</option>{% endfor %}</select><input name="upazila" placeholder="উপজেলা" required><button>নিবন্ধন করুন</button></form>{% endblock %}
+{% extends "base.html" %}
+{% block content %}
+
+<h2>ডোনার নিবন্ধন</h2>
+
+<form method="post">
+    <input name="name" placeholder="আপনার নাম" required>
+
+    <input type="email" name="email" placeholder="ইমেইল" required>
+
+    <div style="display:flex; gap:8px; align-items:center;">
+        <input type="password" name="password" id="password"
+        placeholder="পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)"
+        minlength="8" required style="flex:1;">
+
+        <button type="button" onclick="
+        var p=document.getElementById('password');
+        p.type=p.type==='password'?'text':'password';
+        this.innerText=p.type==='password'?'👁️':'🙈';">
+        👁️
+        </button>
+    </div>
+
+    <input name="phone" placeholder="মোবাইল নম্বর" required>
+
+    <select name="blood">
+        {% for b in blood %}
+        <option>{{b}}</option>
+        {% endfor %}
+    </select>
+
+    <select name="district">
+        {% for d in districts %}
+        <option>{{d}}</option>
+        {% endfor %}
+    </select>
+
+    <input name="upazila" placeholder="উপজেলা" required>
+
+    <button>নিবন্ধন করুন</button>
+</form>
+
+{% endblock %}
