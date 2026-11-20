@@ -93,8 +93,7 @@ def logout():
     session.clear()
     return redirect(url_for("home"))
 
-@app.route("/donors")
-def donors():
+    return render_template("login_required.html")
     if not session.get("uid"):
         flash("তালিকা দেখতে নিবন্ধন করুন।")
         return redirect(url_for("register"))
