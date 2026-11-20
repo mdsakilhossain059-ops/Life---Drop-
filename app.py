@@ -1,11 +1,12 @@
-
-import os, sqlite3
+import os
+import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, session, flash, g, send_from_directory
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "change-this-secret-before-public-launch")
 DB = os.environ.get("DATABASE_PATH", "life_drop.db")
+
 
 @app.route("/manifest.json")
 def manifest():
@@ -15,17 +16,20 @@ def manifest():
         mimetype="application/manifest+json"
     )
 
+
 def db():
     if "db" not in g:
         g.db = sqlite3.connect(DB)
         g.db.row_factory = sqlite3.Row
     return g.db
 
+
 @app.teardown_appcontext
 def close_db(exc):
     conn = g.pop("db", None)
     if conn:
         conn.close()
+
 
 def init_db():
     with app.app_context():
@@ -45,15 +49,18 @@ def init_db():
         """)
         c.commit()
 
+
 init_db()
 
 DISTRICTS = """Bagerhat, Bandarban, Barguna, Barishal, Bhola, Bogura, Brahmanbaria, Chandpur, Chapainawabganj, Chattogram, Chuadanga, Cox's Bazar, Cumilla, Dhaka, Dinajpur, Faridpur, Feni, Gaibandha, Gazipur, Gopalganj, Habiganj, Jamalpur, Jashore, Jhalokati, Jhenaidah, Joypurhat, Khagrachhari, Khulna, Kishoreganj, Kurigram, Kushtia, Lakshmipur, Lalmonirhat, Madaripur, Magura, Manikganj, Meherpur, Moulvibazar, Munshiganj, Mymensingh, Naogaon, Narail, Narayanganj, Narsingdi, Natore, Netrokona, Nilphamari, Noakhali, Pabna, Panchagarh, Patuakhali, Pirojpur, Rajbari, Rajshahi, Rangamati, Rangpur, Satkhira, Shariatpur, Sherpur, Sirajganj, Sunamganj, Sylhet, Tangail, Thakurgaon""".split(", ")
 
 BLOOD = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
+
 @app.route("/")
 def home():
     return render_template("index.html", districts=DISTRICTS, blood=BLOOD)
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -72,6 +79,7 @@ def register():
             flash("এই ইমেইল দিয়ে আগে অ্যাকাউন্ট খোলা হয়েছে।")
     return render_template("register.html", districts=DISTRICTS, blood=BLOOD)
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -88,15 +96,17 @@ def login():
 
     return render_template("login.html")
 
+
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("home"))
 
-    return render_template("login_required.html")
+
+@app.route("/donors")
+def donors():
     if not session.get("uid"):
-        flash("তালিকা দেখতে নিবন্ধন করুন।")
-        return redirect(url_for("register"))
+        return render_template("login_required.html")
 
     blood = request.args.get("blood", "")
     district = request.args.get("district", "")
@@ -120,6 +130,7 @@ def logout():
         blood=BLOOD
     )
 
+
 @app.route("/availability", methods=["POST"])
 def availability():
     if not session.get("uid"):
@@ -132,8 +143,12 @@ def availability():
     db().commit()
     return redirect(url_for("home"))
 
+
+@app.route("/request", methods=["GET", "POST"])
+def request_blood():
     if not session.get("uid"):
         return render_template("login_required.html")
+
     if request.method == "POST":
         f = request.form
         db().execute(
@@ -147,17 +162,18 @@ def availability():
 
     return render_template("request.html", districts=DISTRICTS, blood=BLOOD)
 
+
 @app.route("/requests")
 def requests():
     if not session.get("uid"):
-        flash("তালিকা দেখতে নিবন্ধন করুন।")
-        return redirect(url_for("register"))
+        return render_template("login_required.html")
 
     rows = db().execute(
         "SELECT * FROM requests ORDER BY id DESC"
     ).fetchall()
 
     return render_template("requests.html", requests=rows)
+
 
 if __name__ == "__main__":
     app.run(
